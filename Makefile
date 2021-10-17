@@ -1,9 +1,14 @@
 CXX = g++
 CXXFLAGS = -std=c++11
-APP = ./bin/sample
 
-SRC = $(wildcard ./src/*.cpp)
 INC = ./inc/
 
-all: $(SRC)
-	$(CXX) $(CXXFLAGS) -o $(APP) $(SRC) -I$(INC)
+all: $(patsubst ./src/%.cpp, ./bin/%.out, $(wildcard ./src/*.cpp))
+
+./bin/%.out: ./src/%.cpp Makefile
+	$(CXX) $(CXXFLAGS) $< -o $(@:.out=) -I$(INC)
+
+clean: $(patsubst ./src/%.cpp, ./bin/%.clean, $(wildcard ./src/*.cpp))
+
+%.clean:
+	rm -f $(@:.clean=)

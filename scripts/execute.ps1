@@ -1,1 +1,1 @@
-bash --login ./scripts/execute.sh
+bash --login ./scripts/execute.sh $args[0]
